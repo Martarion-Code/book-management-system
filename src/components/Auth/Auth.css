@@ -1,0 +1,66 @@
+.cont-login-bg{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+    background: #eee;
+}
+
+.login-cont {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    min-width: 400px;
+  }
+
+  .title-login__login-cont{
+    margin-bottom: 20px;
+  }
+
+
+.login-cont form label{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.login-cont form input{
+    width: 100%;
+    margin-bottom: calc(20px + 1vh);
+    border: none;
+    background-color: #d5d5f4 ;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+
+.password-text-cont__login-cont{
+    display: flex;
+    justify-content: space-between;
+}
+
+.forget-pwd-text__password-text-cont{
+    font-size: 0.92rem;
+}
+
+
+.btn-login__login-cont{
+    background-color: #4845cd;
+    padding: 15px 0 ;
+    border: none;
+    width: 100%;
+    color: #fff;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 1px 5px 7px 4px rgb(0 0 0 / 9%);
+
+
+}
+
+.sign-up-text__login-cont{
+    margin: 20px 0;
+    font-size: 0.8rem;
+    text-align: center;
+}
