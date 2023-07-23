@@ -8,6 +8,7 @@ const useAxiosPrivate = async  () =>{
     const refreshToken =  useRefreshToken();
     const {auth} = useAuth();
     useEffect(() => {
+        
        const requestInterceptor = axiosPrivate.interceptors.request.use(config => 
             {
             if(!config.headers?.Authorization){
@@ -25,6 +26,7 @@ const useAxiosPrivate = async  () =>{
                 return axiosPrivate(prevRequest);
 
             }
+            return Promise.reject(error);
         })
         
     
