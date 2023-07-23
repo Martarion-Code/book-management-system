@@ -16,6 +16,7 @@ import Unauthorized from "./components/Unauthorized";
 import Root from "./components/Root";
 import PersistLogin from "./components/PersistLogin";
 import Missing from "./components/Missing";
+import Register from "./components/Auth/Register";
 
 
 const router = createBrowserRouter([
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Unauthorized></Unauthorized>,
+        element: <Register></Register>,
       },
       {
         path: "unauthorized",
