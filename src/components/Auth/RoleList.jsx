@@ -7,7 +7,7 @@ function RoleList({ roles }) {
         // console.log(roles)
         
           const rolesEl = roles.map((role) => (
-            <option value={role.name} key={role.id}>
+            <option className="option__role-register" value={role.name} key={role.id}>
               {role.name}
             </option>
           ));

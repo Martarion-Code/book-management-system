@@ -64,3 +64,15 @@ body{
     font-size: 0.8rem;
     text-align: center;
 }
+
+.role-register{
+    WIDTH: 100%;
+    /* height: calc(20px+1vh); */
+    height: 35px;
+    border-radius: 5px;
+}
+
+.option__role-register{
+    padding: 15px 0;
+    height: 20px;
+}

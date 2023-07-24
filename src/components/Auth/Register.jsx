@@ -1,21 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-import useAuth from "../../../hook/useAuth";
-import RoleList from "./RoleList";
-
-
 import "./Auth.css";
 
 import axios from "../../api/axios";
 
 const REGISTER_URL = "/v1/register";
-const ROLE_URL = "/v1/roles";
+
 
 function Register() {
-  const { setAuth } = useAuth();
-  const [user, setUser] = useState({});
-  const [rolesDataFromServer, setRolesDataFromServer] = useState([])
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -26,31 +19,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [pwd, setPwd] = useState("");
-  const [role, setRole] = useState("");
+
   const [errMsg, setErrMsg] = useState("");
-
-  useEffect( () => {
-    async function getRoles (){
-      try {
-      const response = await axios.get(ROLE_URL);
-      
-        // console.log(response.data.data);
-        setRolesDataFromServer(response.data.data);
-        // return roles.json();
-      } catch (error) {
-        console.error(error);
-      } finally{
-        // console.log(rolesDataFromServer);
-        // console.log(.json());
-      }
-    }
-
-    console.log(getRoles());
-
-    
-
-    return () => {};
-  }, []);
 
   useEffect(() => {
     nameRef.current.focus();
@@ -64,33 +34,27 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      await axios.post(
         REGISTER_URL,
-        JSON.stringify({ email: email, password: pwd }),
+        JSON.stringify({ name: name, email: email, password: pwd}),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-
-      console.log(email);
-      const accessToken = response?.data?.accessToken;
-      // console.log(accessToken);
-      const role = response?.data?.role;
-      setAuth({ name, email, pwd, role, accessToken });
-
       setEmail("");
       setPwd("");
+      setName("");
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (!err.response?.status === 400) {
-        setErrMsg("Missing emailname or password");
+        setErrMsg("Missing email, name or password");
       } else if (err.response?.status === 401) {
         setErrMsg("Unathorized");
       } else {
-        setErrMsg("Login failed");
+        setErrMsg("Register failed");
       }
       errRef.current.focus();
     }
@@ -110,9 +74,7 @@ function Register() {
           onSubmit={handleSubmit}
           encType="application/x-www-form-urlencoded"
         >
-          <label  htmlFor="name">
-            name :{" "}
-          </label>
+          <label htmlFor="name">Name : </label>
           <input
             type="text"
             name="name"
@@ -127,31 +89,18 @@ function Register() {
             id="email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="password-text-cont__login-cont">
-            <label htmlFor="password">Password : </label>
-            <a href="#" className="forget-pwd-text__password-text-cont">
-              Forget Password?
-            </a>
-          </div>
+          <label htmlFor="password">Password : </label>
           <input
             type="text"
             name="password"
             id="password"
             onChange={(e) => setPwd(e.target.value)}
           />
-          <select
-            name="role"
-            id="role"
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value=""></option>
-            <RoleList roles={rolesDataFromServer}></RoleList>
-          </select>
-          <button className="btn-login__login-cont"> Login</button>
+          <button className="btn-login__login-cont"> Register</button>
         </form>
         <p className="sign-up-text__login-cont">
-          Don&#39;t have Account?
-          <Link to="register">Sign Up</Link>
+          Already have Account?
+          <Link to="/login" replace> Sign In</Link>
         </p>
       </div>
     </div>
